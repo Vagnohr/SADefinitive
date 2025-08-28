@@ -67,75 +67,81 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca de Produtos</title>
-    <link rel="stylesheet" href="Estilo/style.css">
-    <link rel="stylesheet" href="Estilo/styles.css">
+    <title>Cadastro de Usuarios</title>
+    <link rel="stylesheet" href="stles.css">
+    <script src="validacoes.js"></script>
 </head>
 <body>
-    <!-- Menu -->
-    <nav>
-        <ul class="menu">
-            <?php foreach ($opcoes_menu as $categoria => $arquivos): ?>
-                <li class="dropdown">
-                    <a href="#"><?= $categoria ?></a>
-                    <ul class="dropdown-menu">
-                        <?php foreach ($arquivos as $arquivo): ?>
-                            <li><a href="<?= $arquivo ?>"><?= ucfirst(str_replace("_"," ",basename($arquivo,".php"))) ?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </nav>
-    <div style="position: relative; text-align: center; margin: 20px 0;">
-        <h2 style="margin: 0;">Buscar Produtos:</h2>
-        <div class="logout" style="position: absolute; right: 0; top: 100%; transform: translateY(-50%);">
-            <form action="logout.php" method="POST">
-                <button type="submit">Logout</button>
-            </form>
-        </div>
-    </div>
-
-    <form action="buscar_produto.php" method="POST">
-        <label for="busca">Digite o ID ou Nome:</label>
-        <input type="text" id="busca" name="busca">
-        <button type="submit">Pesquisar</button>
+    <ul>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-menu">Cadastro</a>
+            <div class="dropdown-content">
+                <a href="cadastro_fornecedor.php">Cadastro Fornecedor</a>
+                <a href="cadastro_produto.php">Cadastro Produto</a>
+                <a href="cadastro_cliente.php">Cadastro Cliente</a>
+                <a href="cadastro_usuario.php">Cadastro Usuario</a>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-menu">Excluir</a>
+            <div class="dropdown-content">
+                <a href="excluir_fornecedor.php">Excluir Fornecedor</a>
+                <a href="excluir_produto.php">Excluir Produto</a>
+                <a href="excluir_perfil.php">Excluir Perfil</a>
+                <a href="excluir_funcionario.php">Excluir Funcionario</a>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-menu">Buscar</a>
+            <div class="dropdown-content">
+                <a href="buscar_fornecedor.php">Buscar Fornecedor</a>
+                <a href="buscar_produto.php">Buscar Produto</a>
+                <a href="buscar_usuario.php">Buscar Usuario</a>
+                <a href="buscar_perfil.php">Buscar Perfil</a>
+                <a href="buscar_cliente.php">Buscar Cliente</a>
+                <a href="buscar_funcionario.php">Buscar Funcionario</a>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-menu">Alterar</a>
+            <div class="dropdown-content">
+                <a href="alterar_fornecedor.php">Alterar Fornecedor</a>
+                <a href="alterar_produto.php">Alterar Produto</a>
+                <a href="alterar_usuario.php">Alterar Usuario</a>
+                <a href="alterar_perfil.php">Alterar Perfil</a>
+                <a href="alterar_cliente.php">Alterar Cliente</a>
+                <a href="alterar_funcionario.php">Alterar Funcionario</a>
+            </div>
+        </li>
+    </ul>
+    <h2>Cadastrar Usuario</h2>
+    <form action="cadastro_funcionario.php" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome_funcionario" name="nome_funcionario" required>
+        <br>
+        <label for="email">Endereço::</label>
+        <input type="text" id="endereco" name="endereco" required>
+        <br>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required onkeypress="mascara(this,telefone)">
+        <br>
+        <label for="senha">Email:</label>
+        <input type="email" id="email" name="email" required>
+        </select>
+        <br>
+        <button type="submit">Salvar</button>
+        <button type="reset">Cancelar</button>
     </form>
-    <?php if (!empty($produtos)): ?>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Quantidade</th>
-                <th>Valor Unitário</th>
-                <th>Ações</th>
-            </tr>
-        <?php foreach ($produtos as $p): ?>
-            <tr>
-                <td><?= htmlspecialchars($p['id_produto']) ?></td>
-                <td><?= htmlspecialchars($p['nome_prod']) ?></td>
-                <td><?= htmlspecialchars($p['descricao']) ?></td>
-                <td><?= htmlspecialchars($p['qtde']) ?></td>
-                <td><?= htmlspecialchars($p['valor_unit']) ?></td>
-                <td>
-                    <a href="alterar_produto.php?id=<?= $p['id_produto'] ?>">Alterar Produto</a>
-                    <a href="excluir_produto.php?id=<?= $p['id_produto'] ?>" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir Produto</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </table>
-    <?php else: ?>
-        <p>Nenhum Produto Encontrado.</p>
-    <?php endif; ?>
-    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['busca'])): ?>
-        <a href="buscar_produto.php">Voltar</a>
-    <?php else: ?>
-        <a href="principal.php">Voltar para o Menu</a>
-    <?php endif; ?>
+    <a href="principal.php">Voltar</a>
 </body>
 </html>
