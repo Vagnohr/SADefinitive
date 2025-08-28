@@ -8,25 +8,25 @@ if ($_SESSION['perfil'] != 1 && $_SESSION['perfil'] != 3) {
     exit();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_produto = $_POST['id_produto'];
+    $id_remedio = $_POST['id_remedio'];
     $nome_prod = $_POST['nome_prod'];
     $descricao = $_POST['descricao'];
     $qtde = $_POST['qtde'];
     $valor_unit = $_POST['valor_unit'];
 
-    $sql = "UPDATE produto SET nome_prod=:nome_prod, descricao=:descricao, qtde=:qtde, valor_unit=:valor_unit 
-            WHERE id_produto=:id_produto";
+    $sql = "UPDATE remedio SET nome_prod=:nome_prod, descricao=:descricao, qtde=:qtde, valor_unit=:valor_unit 
+            WHERE id_remedio=:id_remedio";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':nome_prod', $nome_prod);
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':qtde', $qtde);
     $stmt->bindParam(':valor_unit', $valor_unit);
-    $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
+    $stmt->bindParam(':id_remedio', $id_remedio, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Produto atualizado com sucesso!');window.location.href='buscar_produto.php';</script>";
+        echo "<script>alert('remedio atualizado com sucesso!');window.location.href='buscar_remedio.php';</script>";
     } else {
-        echo "<script>alert('Erro ao atualizar produto.');window.location.href='alterar_produto.php?id=$id_produto';</script>";
+        echo "<script>alert('Erro ao atualizar remedio.');window.location.href='alterar_remedio.php?id=$id_remedio';</script>";
     }
 }
 ?>
