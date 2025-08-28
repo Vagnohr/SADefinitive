@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.login-container {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #ccc;
+}
+
+.saudacao {
+    text-align: left;
+}
+
+.logout {
+    text-align: right;
+}
+
+.logout button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.logout button:hover {
+    background-color: #c9302c;
+}
+
+/* ================== MENU ================== */
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: #007bff; /* azul principal */
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu li a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    background-color: #007bff; /* azul principal */
+    white-space: nowrap; /* não deixa quebrar linha */
+}
+
+.menu li:hover > a {
+    background-color: #0056b3; /* azul mais escuro ao passar o mouse */
+}
+
+/* Submenu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;   /* logo abaixo do item pai */
+    left: 0;
+    background-color: #3399ff; /* azul intermediário */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+.dropdown-menu li a {
+    padding: 10px;
+    display: block;
+    color: white;
+    text-decoration: none;
+    background-color: #3399ff;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #0056b3; /* azul escuro no hover */
+}
+
+/* Faz abrir o submenu */
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+/* ================== FORMULÁRIOS ================== */
+
+/* Centraliza o formulário */
+form {
+    width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    width: 80%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
