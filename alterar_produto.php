@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario'])) {
 
 // Obtendo o Nome do Perfil do Usuario Logado
 $id_perfil = $_SESSION['perfil'];
-$sqlPerfil = "SELECT nome_perfil FROM perfil WHERE id_perfil = :id_perfil";
+$sqlPerfil = "SELECT nome FROM usuario WHERE id_perfil = :id_perfil";
 $stmtPerfil = $pdo->prepare($sqlPerfil);
 $stmtPerfil->bindParam(':id_perfil', $id_perfil);
 $stmtPerfil->execute();
