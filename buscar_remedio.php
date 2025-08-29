@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once 'conexao.php';
-
-// Verifica se remedio está logado
+$permissoes=[];
+// Verifica se usuário está logado
 if (!isset($_SESSION['usuario'])) {
     header("Location: index.php");
     exit();
@@ -15,7 +15,27 @@ $stmtPerfil = $pdo->prepare($sqlPerfil);
 $stmtPerfil->bindParam(':id_perfil', $id_perfil);
 $stmtPerfil->execute();
 $perfil = $stmtPerfil->fetch(PDO::FETCH_ASSOC);
-$nome_perfil = $perfil['nome_perfil'];
+
+// Definição das Permissões por Perfil
+$permissoes = [
+    1=>["Cadastrar"=>["cadastro_usuario.php", "cadastro_perfil.php", "cadastro_cliente.php", "cadastro_fornecedor.php", "cadastro_produto.php", "cadastro_funcionario.php"],
+        "Buscar"=>["buscar_usuario.php", "buscar_perfil.php", "buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php", "buscar_funcionario.php"],
+        "Alterar"=>["alterar_usuario.php", "alterar_perfil.php", "alterar_cliente.php", "alterar_fornecedor.php", "alterar_produto.php", "alterar_funcionario.php"],
+        "Excluir"=>["excluir_usuario.php", "excluir_perfil.php", "excluir_cliente.php", "excluir_fornecedor.php", "excluir_produto.php", "excluir_funcionario.php"]],
+    
+    2=>["Cadastrar"=>["cadastro_cliente.php"],
+        "Buscar"=>["buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php"],
+        "Alterar"=>["alterar_cliente.php", "alterar_fornecedor.php"]],
+    
+    3=>["Cadastrar"=>["cadastro_fornecedor.php", "cadastro_produto.php"],
+        "Buscar"=>["buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php"],
+        "Alterar"=>["alterar_fornecedor.php", "alterar_produto.php"],
+        "Excluir"=>["excluir_produto.php"]],
+
+    4=>["Cadastrar"=>["cadastro_cliente.php"],
+        "Buscar"=>["buscar_produto.php"],
+        "Alterar"=>["alterar_cliente.php"]],
+];
 
 // Obtendo as Opções Disponiveis para o Perfil Logado
 $opcoes_menu = $permissoes[$id_perfil];
@@ -75,7 +95,7 @@ $remedios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </nav>
 
     <div style="position: relative; text-align: center; margin: 20px 0;">
-        <h2 style="margin: 0;">Buscar Remédios:</h2>
+        <h2 style="margin: 0;">Buscar Remedios:</h2>
         <div class="logout" style="position: absolute; right: 0; top: 100%; transform: translateY(-50%);">
             <form action="logout.php" method="POST">
                 <button type="submit">Logout</button>
@@ -101,20 +121,20 @@ $remedios = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tr>
         <?php foreach ($remedios as $remedio): ?>
             <tr>
-                <td><?= htmlspecialchars($remedio['id_remedio]']) ?></td>
-                <td><?= htmlspecialchars($remedio['nome_prod']) ?></td>
+                <td><?= htmlspecialchars($remedio['id_remedio']) ?></td>
+                <td><?= htmlspecialchars($remedio['nome']) ?></td>
                 <td><?= htmlspecialchars($remedio['descricao']) ?></td>
                 <td><?= htmlspecialchars($remedio['qtde']) ?></td>
                 <td><?= htmlspecialchars($remedio['valor_unit']) ?></td>
                 <td>
-                    <a href="alterar_remedio.php?id=<?= htmlspecialchars($remedio['id_remedio']) ?>">Alterar remédio</a>
-                    <a href="excluir_remedio.php?id=<?= htmlspecialchars($remedio['id_remedio']) ?>" onclick="return confirm('Tem Certeza que deseja Excluir esse remédio?')">Excluir reméio</a>
+                    <a href="alterar_remedio.php?id=<?= htmlspecialchars($remedio['id_remedio']) ?>">Alterar Usuário</a>
+                    <a href="excluir_remedio.php?id=<?= htmlspecialchars($remedio['id_remedio']) ?>" onclick="return confirm('Tem Certeza que deseja Excluir esse remedio?')">Excluir Usuário</a>
                 </td>
             </tr>
         <?php endforeach; ?>
         </table>
     <?php else: ?>
-        <p>Nenhum remédio Encontrado.</p>
+        <p>Nenhum Usuário Encontrado.</p>
     <?php endif; ?>
 
     <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['busca'])): ?>
