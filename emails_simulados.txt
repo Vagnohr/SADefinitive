@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 Para: admin@admin
 Olá! Sua nova senha temporária é: 19BEtC6T
 
 ----------------------
 Para: maria@empresa.com
 Olá! Sua nova senha temporária é: Fl0Yxrb8
+=======
+Para: sergio@sergio
+Olá! Sua nova senha temporária é: fqtkJndX
+>>>>>>> f7e9c2ae7d85a34d01e9fee401528b94392f4d8b
 
 ----------------------
