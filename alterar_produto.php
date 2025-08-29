@@ -8,16 +8,16 @@ if ($_SESSION['perfil'] != 1 && $_SESSION['perfil'] != 2) {
     exit();
 }
 
-// Obtendo o Nome do Perfil do Usuario Logado
-$id_perfil = $_SESSION['perfil'];
-$sqlPerfil = "SELECT nome_perfil FROM perfil WHERE id_perfil = :id_perfil";
-$stmtPerfil = $pdo->prepare($sqlPerfil);
-$stmtPerfil->bindParam(':id_perfil', $id_perfil);
-$stmtPerfil->execute();
-$perfil = $stmtPerfil->fetch(PDO::FETCH_ASSOC);
-$nome_perfil = $perfil['nome_perfil'];
+// Obtendo o Nome do usuario do Usuario Logado
+$id_usuario = $_SESSION['usuario'];
+$sqlusuario = "SELECT nome FROM usuario WHERE id_usuario = :id_usuario";
+$stmtusuario = $pdo->prepare($sqlusuario);
+$stmtusuario->bindParam(':id_usuario', $id_usuario);
+$stmtusuario->execute();
+$usuario = $stmtusuario->fetch(PDO::FETCH_ASSOC);
+$nome_usuario = $usuario['nome'];
 
-// Definição das Permissões por Perfil
+// Definição das Permissões por usuario
 $permissoes = [
     1=>["Cadastrar"=>["cadastro_usuario.php", "cadastro_perfil.php", "cadastro_cliente.php", "cadastro_fornecedor.php", "cadastro_produto.php", "cadastro_funcionario.php"],
         "Buscar"=>["buscar_usuario.php", "buscar_perfil.php", "buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php", "buscar_funcionario.php"],
@@ -38,8 +38,8 @@ $permissoes = [
         "Alterar"=>["alterar_cliente.php"]],
 ];
 
-// Obtendo as Opções Disponíveis para o Perfil Logado
-$opcoes_menu = $permissoes[$id_perfil];
+// Obtendo as Opções Disponíveis para o usuario Logado
+$opcoes_menu = $permissoes[$id_usuario];
 
 // Inicializa a variável
 $remedio = null;
