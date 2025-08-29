@@ -19,19 +19,19 @@ $nome_perfil = $perfil['nome_perfil'];
 
 // Definição das Permissões por Perfil
 $permissoes = [
-    1=>["Cadastrar"=>["cadastro_usuario.php", "cadastro_perfil.php", "cadastro_cliente.php", "cadastro_fornecedor.php", "cadastro_produto.php", "cadastro_funcionario.php"],
-        "Buscar"=>["buscar_usuario.php", "buscar_perfil.php", "buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php", "buscar_funcionario.php"],
-        "Alterar"=>["alterar_usuario.php", "alterar_perfil.php", "alterar_cliente.php", "alterar_fornecedor.php", "alterar_produto.php", "alterar_funcionario.php"],
-        "Excluir"=>["excluir_usuario.php", "excluir_perfil.php", "excluir_cliente.php", "excluir_fornecedor.php", "excluir_produto.php", "excluir_funcionario.php"]],
-    2=>["Cadastrar"=>["cadastro_cliente.php"],
-        "Buscar"=>["buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php"],
-        "Alterar"=>["alterar_cliente.php", "alterar_fornecedor.php"]],
-    3=>["Cadastrar"=>["cadastro_fornecedor.php", "cadastro_produto.php"],
-        "Buscar"=>["buscar_cliente.php", "buscar_fornecedor.php", "buscar_produto.php"],
-        "Alterar"=>["alterar_fornecedor.php", "alterar_produto.php"],
-        "Excluir"=>["excluir_produto.php"]],
+    1=>["Cadastrar"=>["cadastro_usuario.php", "cadastro_secretaria.php", "cadastro_funcionario.php", "cadastro_fornecedor.php", "cadastro_remedio.php"],
+        "Buscar"=>["buscar_usuario.php", "buscar_secretaria.php", "buscar_funcionario.php", "buscar_fornecedor.php", "buscar_remedio.php"],
+        "Alterar"=>["alterar_usuario.php", "alterar_secretaria.php", "alterar_funcionario.php", "alterar_fornecedor.php", "alterar_remedio.php"],
+        "Excluir"=>["excluir_usuario.php", "excluir_secretaria.php", "excluir_funcionario.php", "excluir_fornecedor.php", "excluir_remedio.php"]],
+    2=>["Cadastrar"=>["cadastro_remedio.php"],
+        "Buscar"=>["buscar_remedio.php", "buscar_funcionario.php", "buscar_fornecedor.php"],
+        "Alterar"=>["alterar_funcionario", "alterar_fornecedor.php"]],
+    3=>["Cadastrar"=>["cadastro_remedio.php"],
+        "Buscar"=>["buscar_cliente.php", "buscar_fornecedor.php", "buscar_remedio.php"],
+        "Alterar"=>["alterar_fornecedor.php", "alterar_remedio.php"],
+        "Excluir"=>["excluir_remedio.php"]],
     4=>["Cadastrar"=>["cadastro_cliente.php"],
-        "Buscar"=>["buscar_produto.php"],
+        "Buscar"=>["buscar_remedio.php"],
         "Alterar"=>["alterar_cliente.php"]],
 ];
 
@@ -144,8 +144,8 @@ if($_SERVER['REQUEST_METHOD'] =="POST"){
         <select id="id_perfil" name="id_perfil">
             <option value="1">Administrador</option>
             <option value="2">Secretaria</option>
-            <option value="3">Almoxarife</option>
-            <option value="4">Cliente</option>
+            <option value="3">Funcionário</option>
+            <option value="4">Fornecedor</option>
         </select>
 
         <button type="submit">Salvar</button>
