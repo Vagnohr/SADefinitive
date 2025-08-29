@@ -14,8 +14,6 @@ $sqlusuario = "SELECT nome FROM usuario WHERE id_usuario = :id_usuario";
 $stmtusuario = $pdo->prepare($sqlusuario);
 $stmtusuario->bindParam(':id_usuario', $id_usuario);
 $stmtusuario->execute();
-$usuario = $stmtusuario->fetch(PDO::FETCH_ASSOC);
-$nome_usuario = $usuario['nome'];
 
 // Definição das Permissões por usuario
 $permissoes = [
@@ -42,13 +40,11 @@ $permissoes = [
 $opcoes_menu = $permissoes[$id_usuario];
 
 // Inicializa a variável
-$remedio = null;
+$remedio = [];
 
 // Se o Formulário for enviado, busca o remedio pelo id ou pelo primeiro nome
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['busca_remedio'])) {
-        $busca = trim($_POST['busca_remedio']);
-
         // Verifica se a busca é um número(id) ou um Nome
         if (is_numeric($busca)) {
             $sql = "SELECT * FROM remedio WHERE id_remedio = :busca";
@@ -59,8 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $primeiro_nome = explode(" ", $busca)[0];
 
             // Busca apenas pelo primeiro nome (comparando com a primeira palavra do campo nome)
-            $sql = "SELECT * FROM remedio 
-                    WHERE SUBSTRING_INDEX(nome, ' ', 1) LIKE :primeiro_nome";
+            $sql = "SELECT * FROM remedio WHERE nome LIKE :primeiro_nome";
             $stmt = $pdo->prepare($sql);
             $stmt->bindValue(':primeiro_nome', "%$primeiro_nome%", PDO::PARAM_STR);
         }
@@ -80,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Usuário</title>
+    <title>Alterar Remédio</title>
     <link rel="stylesheet" href="Estilo/styles.css">
     <link rel="stylesheet" href="Estilo/style.css">
     <script src="Mascara/scripts.js"></script>
@@ -129,14 +124,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="nome">Nome:</label> 
             <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($remedio['nome']) ?>" required>
             <br>
-            <label for="email">Descrição:</label> 
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($remedio['descricao']) ?>" required>
+            <label for="descricao">Descrição:</label> 
+            <input type="text" id="descricao" name="descricao" value="<?= htmlspecialchars($remedio['descricao']) ?>" required>
             <br>
-            <label for="email">Quantidade:</label> 
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($remedio['qtde']) ?>" required>
+            <label for="qtde">Quantidade:</label> 
+            <input type="number" id="qtde" name="qtde" value="<?= htmlspecialchars($remedio['qtde']) ?>" required>
             <br>
-            <label for="email">Email:</label> 
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($remedio['email']) ?>" required>
+            <label for="email">Valor Unitario:</label> 
+            <input type="number" id="valor_unit" name="valor_unit" value="<?= htmlspecialchars($remedio['valor_unit']) ?>" required>
             <button type="submit">Alterar</button>
             <button type="reset">Cancelar</button>
         </form>
