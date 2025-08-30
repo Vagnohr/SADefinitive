@@ -15,8 +15,24 @@ $stmtPerfil = $pdo->prepare($sqlPerfil);
 $stmtPerfil->bindParam(':id_usuario', $id_perfil);
 $stmtPerfil->execute();
 
-// Definição das Permissões por Perfil
+$permissoes = [
+    1=>["Cadastrar"=>["cadastro_usuario.php", "cadastro_secretaria.php", "cadastro_funcionario.php", "cadastro_fornecedor.php", "cadastro_remedio.php"],
+        "Buscar"=>["buscar_usuario.php", "buscar_secretaria.php", "buscar_funcionario.php", "buscar_fornecedor.php", "buscar_remedio.php"],
+        "Alterar"=>["alterar_usuario.php", "alterar_secretaria.php", "alterar_funcionario.php", "alterar_fornecedor.php", "alterar_remedio.php"],
+        "Excluir"=>["excluir_usuario.php", "excluir_secretaria.php", "excluir_funcionario.php", "excluir_fornecedor.php", "excluir_remedio.php"]],
+    2=>["Cadastrar"=>["cadastro_remedio.php"],
+        "Buscar"=>["buscar_remedio.php", "buscar_funcionario.php", "buscar_fornecedor.php"],
+        "Alterar"=>["alterar_funcionario", "alterar_fornecedor.php"]],
+    3=>["Cadastrar"=>["cadastro_remedio.php"],
+        "Buscar"=>["buscar_cliente.php", "buscar_fornecedor.php", "buscar_remedio.php"],
+        "Alterar"=>["alterar_fornecedor.php", "alterar_remedio.php"],
+        "Excluir"=>["excluir_remedio.php"]],
+    4=>["Cadastrar"=>["cadastro_cliente.php"],
+        "Buscar"=>["buscar_remedio.php"],
+        "Alterar"=>["alterar_cliente.php"]],
+];
 
+// Obtendo as Opções Disponiveis para o Perfil Logado
 $opcoes_menu = $permissoes[$id_perfil];
 
 // Verifica permissão
@@ -26,7 +42,7 @@ if ($_SESSION['perfil'] != 1 && $_SESSION['perfil'] != 3) {
 }
 
 // Lista todos os remedios
-$sql = "SELECT * FROM remedio ORDER BY nome_prod ASC";
+$sql = "SELECT * FROM remedio ORDER BY nome ASC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $remedios = $stmt->fetchAll(PDO::FETCH_ASSOC);

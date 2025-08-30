@@ -17,8 +17,6 @@ $stmtPerfil->execute();
 
 // Definição das Permissões por Perfil
 
-$opcoes_menu = $permissoes[$id_perfil];
-
 // Processa o formulário
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $nome_prod = trim($_POST['nome']);
